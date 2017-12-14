@@ -1,0 +1,53 @@
+ index.php
+ 
+ <span class="langActive"><?php echo showActiveLanguage ();?></span>
+          <ul class="wpml-ls-legacy-list-vertical">
+              <?php cat_build_WPML_languageSwitcher ();?>
+          </ul>
+          
+          
+ function.php
+ 
+ function showActiveLanguage() {
+
+    $existing_languages = icl_get_languages('skip_missing=0&orderby=KEY&order=DIR');
+
+    foreach( $existing_languages as $lang ) {
+
+        // Tests if the language is the active one
+        if ($lang['active'] == 1) {
+            printf( '<img src="%s" alt="%s">', //вывод ссылки
+                $lang['country_flag_url'], //порядок элементов для вывода в ссылку
+                $lang['native_name']
+            );
+        }
+    }
+}
+
+function cat_build_WPML_languageSwitcher() {
+
+    if ( function_exists( 'icl_get_languages' ) ) {
+
+        $existing_languages = icl_get_languages('skip_missing=0&orderby=KEY&order=DIR');
+
+        foreach( $existing_languages as $lang ) {
+
+            $extra_class = '';
+
+            if( ICL_LANGUAGE_CODE == $lang['language_code'] ) {
+
+                $extra_class = ' class="hideLanguage"';
+            }
+
+            printf( '<li%s><a href="%s"><img src="%s" alt="%s" /></a></li>', //вывод ссылки
+                $extra_class, //порядок элементов для вывода в ссылку
+                $lang['url'],
+                $lang['country_flag_url'],
+                $lang['native_name'],
+                $lang['native_name']
+            );
+        }
+    }
+}
+          
+          
