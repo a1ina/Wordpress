@@ -1,0 +1,10 @@
+
+	/*Попап окно если форма заполнена верно и письмо успешно отправлено*/
+jQuery(document).ready(function($) {
+ $(".wpcf7").on('wpcf7:mailsent', function(event){
+ setTimeout(function(){$('#wpcf7-f788-p2-o1 .wpcf7-mail-sent-ok').fadeOut(600, 'swing', function(){
+
+ });},3500); 
+});
+}); 
+});
