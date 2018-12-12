@@ -1,0 +1,43 @@
+<?php
+$title = get_the_title();
+$parent_id = $post->post_parent;
+$parent_title = get_the_title($parent_id);
+
+
+     $id1 = array(
+        "Name" =>  get_the_title(),
+        "Address" => get_the_job_location( $post ),
+        "Phone" => $phone,
+        "Image" => $image_thumbnail_url,
+        "Site" => $website,
+        "Google Map" => $google_map,
+        "KosherUrl" => $_SERVER['HTTP_HOST']
+        );
+ 
+      $global_array = json_encode($id1);  
+       
+
+$file = file_get_contents('./wp-content/themes/findgo/list-region/'.$parent_title.'/'.$title.'/data.json');  // Открыть файл data.json
+          
+$taskList = json_decode($file,TRUE);        // Декодировать в массив 
+                        
+unset($file);  
+
+       
+$taskList[] =array(
+        "Name" =>  get_the_title(),
+        "Address" => get_the_job_location(),
+        "Phone" => $phone,
+        "Image" => $image_thumbnail_url,
+        "Site" => $website,
+        "Google Map" => $google_map,
+        "KosherUrl" => $_SERVER['HTTP_HOST']
+        );       // Представить новую переменную как элемент массива, в формате 'ключ'=>'имя переменной'
+          
+file_put_contents('./wp-content/themes/findgo/list-region/'.$parent_title.'/'.$title.'/data.json',json_encode($taskList, JSON_PRETTY_PRINT));  // Перекодировать в формат и записать в файл.
+          
+unset($taskList); 
+  
+endwhile;
+               
+      ?>
