@@ -1,3 +1,5 @@
+https://wp-kama.ru/function/query_posts
+
 <?php 
                $title = get_the_title();
                $parent_id = $post->post_parent;
